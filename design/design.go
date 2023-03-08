@@ -2,6 +2,9 @@ package design
 
 import (
 	"fmt"
+	"strings"
+
+	parse "gojson/parser"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
@@ -18,7 +21,7 @@ func Design() {
 	myWindow.Resize(fyne.NewSize(800, 500))
 	label := widget.NewLabel("identifiers")
 	label2 := widget.NewLabel("numeric const")
-	label3 := widget.NewLabel("symbol cons")
+	label3 := widget.NewLabel("symbol const")
 
 	data_numeric := [][]string{{"N0", "0"}}
 	table_numeric_const := widget.NewTable(
@@ -40,6 +43,8 @@ func Design() {
 			o.(*widget.Label).SetText(data_symbol[i.Row][i.Col])
 
 		})
+	table_symbol_const.SetColumnWidth(0, 100)
+
 	data_identifier := [][]string{{"I0", "num0"}}
 	table_identifiers := widget.NewTable(
 		func() (int, int) { return 1, 2 },
@@ -51,21 +56,43 @@ func Design() {
 
 		})
 
-	data := [][]string{{"1", "2"}, {"3", "4"}, {"1", "2"}, {"3", "4"}, {"1", "2"}, {"3", "4"}}
 	input, result, _ := widget.NewMultiLineEntry(), widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{Bold: true, TabWidth: 2}), widget.NewEntry()
 
 	button_res := widget.NewButtonWithIcon("parse", theme.ConfirmIcon(), func() {
 		fmt.Println("button pushed")
-		text := input.Text
-		result.SetText(text)
-		table_numeric_const.Length = func() (int, int) { return len(data), len(data[0]) }
-		table_numeric_const.UpdateCell = func(id widget.TableCellID, template fyne.CanvasObject) {
-			label1 := template.(*widget.Label)
-			label1.SetText(data[id.Row][id.Col])
+		java_code := input.Text
+		for _, java_string := range strings.Split(java_code, "\n") {
+			parse.Parse(java_string)
 		}
+		result_string := parse.Get_result()
+		identifiers := parse.Get_data(0)
+		numeric := parse.Get_data(1)
+		symbol := parse.Get_data(2)
+
+		if len(numeric) > 0 {
+			table_numeric_const.Length = func() (int, int) { return len(numeric), len(numeric[0]) }
+			table_numeric_const.UpdateCell = func(id widget.TableCellID, template fyne.CanvasObject) {
+				label1 := template.(*widget.Label)
+				label1.SetText(numeric[id.Row][id.Col])
+			}
+		}
+		if len(symbol) > 0 {
+			table_symbol_const.Length = func() (int, int) { return len(symbol), len(symbol[0]) }
+			table_symbol_const.UpdateCell = func(id widget.TableCellID, template fyne.CanvasObject) {
+				label1 := template.(*widget.Label)
+				label1.SetText(symbol[id.Row][id.Col])
+			}
+		}
+		if len(identifiers) > 0 {
+			table_identifiers.Length = func() (int, int) { return len(identifiers), len(identifiers[0]) }
+			table_identifiers.UpdateCell = func(id widget.TableCellID, template fyne.CanvasObject) {
+				label1 := template.(*widget.Label)
+				label1.SetText(identifiers[id.Row][id.Col])
+			}
+		}
+		result.SetText(result_string)
 	})
 	button_refresh := widget.NewButtonWithIcon("refresh", theme.ContentUndoIcon(), func() {
-		fmt.Println("button pushed")
 		result.SetText("")
 		table_numeric_const.Length = func() (int, int) { return 1, 2 }
 
@@ -73,6 +100,20 @@ func Design() {
 			label1 := template.(*widget.Label)
 			label1.SetText(data_numeric[id.Row][id.Col])
 		}
+
+		table_symbol_const.Length = func() (int, int) { return 1, 2 }
+
+		table_symbol_const.UpdateCell = func(id widget.TableCellID, template fyne.CanvasObject) {
+			label1 := template.(*widget.Label)
+			label1.SetText(data_symbol[id.Row][id.Col])
+		}
+		table_identifiers.Length = func() (int, int) { return 1, 2 }
+
+		table_identifiers.UpdateCell = func(id widget.TableCellID, template fyne.CanvasObject) {
+			label1 := template.(*widget.Label)
+			label1.SetText(data_identifier[id.Row][id.Col])
+		}
+		parse.Cleaner()
 	})
 	input.PlaceHolder = "Java code input"
 	first_row := container.NewGridWithColumns(3, layout.NewSpacer(), container.NewMax(table_numeric_const), layout.NewSpacer())

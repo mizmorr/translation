@@ -3,3 +3,14 @@ public class HelloWorld {
         System.out.println("Hello, World");
     }
 }
+
+
+class GFG {
+    public static void main(String[] args)
+    {
+        float f1 = 1;
+        float f2 = 2;
+        int p = 3;
+        System.out.println("The product is: " + p);
+    }
+}

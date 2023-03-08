@@ -15,6 +15,7 @@ type Java_word struct {
 	Sign     string `json:"sign"`
 }
 
+// TODO: fix float numbers reading
 func processing(mode bool, s string) {
 	var (
 		current_string string
@@ -37,21 +38,21 @@ func processing(mode bool, s string) {
 			is_added := false
 			if is_sep_eq && value != "O8" && !strings.ContainsAny(current_string, "\"") {
 				C := get_const(current_string)
-				make_list(C)
+				make_list(C, true)
 				is_sep_eq, is_added = false, true
 			}
 			if strings.Count(current_string, "\"") == 2 {
 				C := get_const(current_string)
-				make_list(C)
+				make_list(C, true)
 			} else {
 				if current_string != "" && !is_added {
 					word := get_word(current_string)
-					make_list(word)
+					make_list(word, true)
 
 				}
 			}
 			if main_string != "" || mode {
-				make_list(value)
+				make_list(value, true)
 			}
 			current_string = ""
 
@@ -61,6 +62,7 @@ func processing(mode bool, s string) {
 		}
 		current_char, main_string = pop_front(main_string)
 	}
+	make_list("", false)
 }
 
 func is_separator(testing_char, main_string string) (string, string, bool) {
@@ -87,15 +89,22 @@ func is_operator(testing_char string) (bool, string) {
 	return finder(testing_char, 0) //where 0 - operators
 }
 
-func make_list(s string) {
+func make_list(s string, if_inline bool) {
 
 	f, err := os.OpenFile("result.txt", os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
 		panic(err)
 	}
 	defer f.Close()
-	if _, err = f.WriteString(" " + s + " "); err != nil {
-		panic(err)
+	switch if_inline {
+	case true:
+		if _, err = f.WriteString(s + " "); err != nil {
+			panic(err)
+		}
+	case false:
+		if _, err = f.WriteString("\n"); err != nil {
+			panic(err)
+		}
 	}
 
 }
@@ -105,8 +114,13 @@ func get_word(test_word string) string {
 	if flag {
 		return value
 	}
+	flag, value = finder(test_word, 3)
+	if flag {
+		return value
+	}
 	return appender(test_word, 0)
 }
+
 func get_const(const_value string) string {
 	_, err := strconv.ParseFloat(const_value, 32)
 	if err != nil {
@@ -116,8 +130,8 @@ func get_const(const_value string) string {
 }
 
 func appender(added_string string, num int) string {
-	json_s := []string{"identifiers", "numeric_const", "symbol_const", "keywords"}
-	symbol := []string{"I", "N", "C", "W"}
+	json_s := []string{"identifiers", "numeric_const", "symbol_const"}
+	symbol := []string{"I", "N", "C"}
 	count := gojsonq.New().File("data/" + json_s[num] + ".json").Count()
 	file, err := os.ReadFile("data/" + json_s[num] + ".json")
 	if err != nil {
@@ -156,16 +170,21 @@ func pop_front(s string) (char, str string) {
 }
 
 func finder(testing string, num int) (bool, string) {
-	jsons := []string{"operators", "keywords", "separators"}
-	jq, err := gojsonq.New().File("data/"+jsons[num]+".json").WhereEqual("java_name", testing).PluckR("sign")
-	if err != nil {
-		panic(err)
-	}
-	res, _ := jq.StringSlice()
-	if len(res) == 0 {
+	jsons := []string{"operators", "keywords", "separators", "identifiers"}
+	if gojsonq.New().File("data/"+jsons[num]+".json").Count() > 0 {
+		jq, err := gojsonq.New().File("data/"+jsons[num]+".json").WhereEqual("java_name", testing).PluckR("sign")
+		if err != nil {
+			panic(err)
+		}
+		res, _ := jq.StringSlice()
+		if len(res) == 0 {
+			return false, ""
+		}
+		return true, res[0]
+	} else {
 		return false, ""
 	}
-	return true, res[0]
+
 }
 func Cleaner() {
 	err, _, _, _ := os.WriteFile("result.txt", []byte(""), 06664), os.WriteFile("data/identifiers.json", []byte(""), 06664), os.WriteFile("data/numeric_const.json", []byte(""), 06664), os.WriteFile("data/symbol_const.json", []byte(""), 06664)
@@ -179,4 +198,25 @@ func Parse(s string) {
 		return
 	}
 	processing(false, s+" ")
+}
+func Get_data(num int) (result [][]string) {
+	json_s := []string{"identifiers", "numeric_const", "symbol_const"}
+	file, err := os.ReadFile("data/" + json_s[num] + ".json")
+	if err != nil {
+		panic(err)
+	}
+	data := []Java_word{}
+	json.Unmarshal(file, &data)
+	for _, val := range data {
+		cur := []string{val.JavaName, val.Sign}
+		result = append(result, cur)
+	}
+	return
+}
+func Get_result() string {
+	file, err := os.ReadFile("result.txt")
+	if err != nil {
+		panic(err)
+	}
+	return string(file)
 }
