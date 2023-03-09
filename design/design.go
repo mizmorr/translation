@@ -18,7 +18,7 @@ func Design() {
 
 	myApp := app.New()
 	myWindow := myApp.NewWindow("Syntax analyzer")
-	myWindow.Resize(fyne.NewSize(800, 500))
+	myWindow.Resize(fyne.NewSize(900, 500))
 	label := widget.NewLabel("identifiers")
 	label2 := widget.NewLabel("numeric const")
 	label3 := widget.NewLabel("symbol const")
@@ -43,8 +43,6 @@ func Design() {
 			o.(*widget.Label).SetText(data_symbol[i.Row][i.Col])
 
 		})
-	table_symbol_const.SetColumnWidth(0, 100)
-
 	data_identifier := [][]string{{"I0", "num0"}}
 	table_identifiers := widget.NewTable(
 		func() (int, int) { return 1, 2 },
@@ -56,7 +54,14 @@ func Design() {
 
 		})
 
-	input, result, _ := widget.NewMultiLineEntry(), widget.NewLabelWithStyle("", fyne.TextAlignCenter, fyne.TextStyle{Bold: true, TabWidth: 2}), widget.NewEntry()
+	table_symbol_const.SetColumnWidth(1, 100)
+	table_symbol_const.SetColumnWidth(0, 40)
+	table_numeric_const.SetColumnWidth(1, 100)
+	table_numeric_const.SetColumnWidth(0, 40)
+	table_identifiers.SetColumnWidth(0, 40)
+	table_identifiers.SetColumnWidth(1, 100)
+
+	input, result, _ := widget.NewMultiLineEntry(), widget.NewLabelWithStyle("", fyne.TextAlignLeading, fyne.TextStyle{Bold: true, TabWidth: 2}), widget.NewEntry()
 
 	button_res := widget.NewButtonWithIcon("parse", theme.ConfirmIcon(), func() {
 		fmt.Println("button pushed")

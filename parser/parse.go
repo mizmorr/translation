@@ -208,7 +208,7 @@ func Get_data(num int) (result [][]string) {
 	data := []Java_word{}
 	json.Unmarshal(file, &data)
 	for _, val := range data {
-		cur := []string{val.JavaName, val.Sign}
+		cur := []string{val.Sign, val.JavaName}
 		result = append(result, cur)
 	}
 	return
