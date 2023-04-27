@@ -94,5 +94,30 @@
     {
         "java_name": "\u003c=",
         "sign": "O24"
+    },
+    {
+        "java_name":"|",
+        "sign":"S0"
+
+    },
+    {
+        "java_name":"\u0026",
+        "sign":"S1"
+    },
+    {
+        "java_name":"^",
+        "sign":"S2"
+    },
+    {
+        "java_name":"<<",
+        "sign":"S3"
+    },
+    {
+        "java_name":">>",
+        "sign":"S4"
+    },
+    {
+        "java_name":"!",
+        "sign":"S5"
     }
 ]

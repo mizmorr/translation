@@ -23,29 +23,53 @@ func processing(mode bool, s string) {
 		flag           bool
 		is_sep_eq      bool
 		is_quotes      bool
+		current_op     string
+		is_complex_op  bool
 	)
 	current_char, main_string := pop_front(s)
 	for current_char != "end" {
 		main_string, value, flag = is_separator(current_char, main_string)
 		if !is_sep_eq {
-			is_sep_eq = value == "O8"
+			if is_sep_eq = strings.ContainsAny(value, "O"); is_sep_eq {
+				current_op = value
+			}
+
 		}
 		if current_char == "\"" {
 			is_quotes = !is_quotes
 		}
+		if main_string != "" && flag {
+			{
+				_, cur_value, cur_flag := is_separator(current_char+string(main_string[0]), "")
+
+				if cur_flag && (string(cur_value[0]) == "O" || string(cur_value[0]) == "S") {
+					flag = false
+					is_complex_op = true
+				}
+				if len(current_char) > 1 && !cur_flag {
+					flag = true
+					is_complex_op = false
+					current_op = value
+				}
+			}
+		}
 		if flag && !is_quotes {
-			// fmt.Println(is_quotes, main_string)
 			is_added := false
-			if is_sep_eq && value != "O8" && !strings.ContainsAny(current_string, "\"") {
+			if _, err := strconv.Atoi(current_string); err == nil {
+				N := get_const(current_string)
+				make_list(N, true)
+				is_added = true
+			}
+			if !is_added && is_sep_eq && value != current_op && !strings.ContainsAny(current_string, "\"") {
 				C := get_const(current_string)
 				make_list(C, true)
 				is_sep_eq, is_added = false, true
 			}
-			if strings.Count(current_string, "\"") == 2 {
+			if !is_added && !is_complex_op && strings.Count(current_string, "\"") == 2 {
 				C := get_const(current_string)
 				make_list(C, true)
 			} else {
-				if current_string != "" && !is_added {
+				if !is_complex_op && current_string != "" && !is_added {
 					word := get_word(current_string)
 					make_list(word, true)
 
@@ -55,12 +79,21 @@ func processing(mode bool, s string) {
 				make_list(value, true)
 			}
 			current_string = ""
+			is_complex_op = false
 
 		} else {
-			current_string += current_char
+			if !is_complex_op {
+				current_string += current_char
+			}
 
 		}
-		current_char, main_string = pop_front(main_string)
+		if !is_complex_op {
+			current_char, main_string = pop_front(main_string)
+		} else {
+			char, main := pop_front(main_string)
+			current_char += char
+			main_string = main
+		}
 	}
 	make_list("", false)
 }
@@ -122,6 +155,15 @@ func get_word(test_word string) string {
 }
 
 func get_const(const_value string) string {
+	if flag, ident := finder(const_value, 3); flag {
+		return ident
+	}
+	if flag, key_word := finder(const_value, 1); flag {
+		return key_word
+	}
+	if const_value == "" {
+		return ""
+	}
 	_, err := strconv.ParseFloat(const_value, 32)
 	if err != nil {
 		return appender(const_value, 2)
@@ -200,16 +242,26 @@ func Parse(s string) {
 	processing(false, s+" ")
 }
 func Get_data(num int) (result [][]string) {
-	json_s := []string{"identifiers", "numeric_const", "symbol_const"}
+	json_s := []string{"identifiers", "numeric_const", "symbol_const", "keywords", "operators", "separators"}
 	file, err := os.ReadFile("data/" + json_s[num] + ".json")
 	if err != nil {
 		panic(err)
 	}
 	data := []Java_word{}
 	json.Unmarshal(file, &data)
-	for _, val := range data {
-		cur := []string{val.Sign, val.JavaName}
-		result = append(result, cur)
+	if num == 4 {
+		for _, val := range data {
+			if strings.ContainsAny(val.Sign, "O") {
+				cur := []string{val.Sign, val.JavaName}
+				result = append(result, cur)
+			}
+		}
+
+	} else {
+		for _, val := range data {
+			cur := []string{val.Sign, val.JavaName}
+			result = append(result, cur)
+		}
 	}
 	return
 }
@@ -219,4 +271,29 @@ func Get_result() string {
 		panic(err)
 	}
 	return string(file)
+}
+
+func GET() {
+	file, err := os.ReadFile("data/keywords.json")
+	if err != nil {
+		panic(err)
+	}
+	result := []string{}
+	data := []Java_word{}
+	json.Unmarshal(file, &data)
+	for _, val := range data {
+		cur := val.JavaName
+		result = append(result, cur)
+	}
+	f, err := os.OpenFile("t.txt", os.O_APPEND|os.O_WRONLY, 0600)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+	for _, s := range result {
+		if _, err = f.WriteString(s + "\n"); err != nil {
+			panic(err)
+		}
+	}
+
 }
