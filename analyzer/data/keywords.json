@@ -1,0 +1,370 @@
+[
+    {
+        "java_name": "abstract",
+        "sign": "W1"
+    },
+    {
+        "java_name": "assert",
+        "sign": "W2"
+    },
+    {
+        "java_name": "boolean",
+        "sign": "W3"
+    },
+    {
+        "java_name": "break",
+        "sign": "W4"
+    },
+    {
+        "java_name": "byte",
+        "sign": "W5"
+    },
+    {
+        "java_name": "case",
+        "sign": "W6"
+    },
+    {
+        "java_name": "catch",
+        "sign": "W7"
+    },
+    {
+        "java_name": "char",
+        "sign": "W8"
+    },
+    {
+        "java_name": "class",
+        "sign": "W9"
+    },
+    {
+        "java_name": "const",
+        "sign": "W10"
+    },
+    {
+        "java_name": "continue",
+        "sign": "W11"
+    },
+    {
+        "java_name": "default",
+        "sign": "W12"
+    },
+    {
+        "java_name": "do",
+        "sign": "W13"
+    },
+    {
+        "java_name": "double",
+        "sign": "W14"
+    },
+    {
+        "java_name": "else",
+        "sign": "W15"
+    },
+    {
+        "java_name": "enum",
+        "sign": "W16"
+    },
+    {
+        "java_name": "extends",
+        "sign": "W17"
+    },
+    {
+        "java_name": "final",
+        "sign": "W18"
+    },
+    {
+        "java_name": "finally",
+        "sign": "W19"
+    },
+    {
+        "java_name": "float",
+        "sign": "W20"
+    },
+    {
+        "java_name": "for",
+        "sign": "W21"
+    },
+    {
+        "java_name": "goto",
+        "sign": "W22"
+    },
+    {
+        "java_name": "if",
+        "sign": "W23"
+    },
+    {
+        "java_name": "implements",
+        "sign": "W24"
+    },
+    {
+        "java_name": "import",
+        "sign": "W25"
+    },
+    {
+        "java_name": "instanceof",
+        "sign": "W26"
+    },
+    {
+        "java_name": "int",
+        "sign": "W27"
+    },
+    {
+        "java_name": "interface",
+        "sign": "W28"
+    },
+    {
+        "java_name": "long",
+        "sign": "W29"
+    },
+    {
+        "java_name": "native",
+        "sign": "W30"
+    },
+    {
+        "java_name": "new",
+        "sign": "W31"
+    },
+    {
+        "java_name": "package",
+        "sign": "W32"
+    },
+    {
+        "java_name": "private",
+        "sign": "W33"
+    },
+    {
+        "java_name": "protected",
+        "sign": "W34"
+    },
+    {
+        "java_name": "public",
+        "sign": "W35"
+    },
+    {
+        "java_name": "return",
+        "sign": "W36"
+    },
+    {
+        "java_name": "short",
+        "sign": "W37"
+    },
+    {
+        "java_name": "static",
+        "sign": "W38"
+    },
+    {
+        "java_name": "super",
+        "sign": "W39"
+    },
+    {
+        "java_name": "switch",
+        "sign": "W40"
+    },
+    {
+        "java_name": "synchronized",
+        "sign": "W41"
+    },
+    {
+        "java_name": "this",
+        "sign": "W42"
+    },
+    {
+        "java_name": "throw",
+        "sign": "W43"
+    },
+    {
+        "java_name": "throws",
+        "sign": "W44"
+    },
+    {
+        "java_name": "transient",
+        "sign": "W45"
+    },
+    {
+        "java_name": "try",
+        "sign": "W46"
+    },
+    {
+        "java_name": "void",
+        "sign": "W47"
+    },
+    {
+        "java_name": "volatile",
+        "sign": "W48"
+    },
+    {
+        "java_name": "while",
+        "sign": "W49"
+    },
+    {
+        "java_name": "String",
+        "sign": "W50"
+    },
+    {
+        "java_name": "System",
+        "sign": "W51"
+    },
+    {
+        "java_name": "out",
+        "sign": "W52"
+    },
+    {
+        "java_name": "println",
+        "sign": "W53"
+    },
+    {
+        "java_name": "charAt",
+        "sign": "W54"
+    },
+    {
+        "java_name": "codePointAt",
+        "sign": "W55"
+    },
+    {
+        "java_name": "codePointBefore",
+        "sign": "W56"
+    },
+    {
+        "java_name": "codePointCount",
+        "sign": "W57"
+    },
+    {
+        "java_name": "compareTo",
+        "sign": "W58"
+    },
+    {
+        "java_name": "compareToIgnoreCase",
+        "sign": "W59"
+    },
+    {
+        "java_name": "concat",
+        "sign": "W60"
+    },
+    {
+        "java_name": "contains",
+        "sign": "W61"
+    },
+    {
+        "java_name": "contentEquals",
+        "sign": "W62"
+    },
+    {
+        "java_name": "copyValueOf",
+        "sign": "W63"
+    },
+    {
+        "java_name": "endsWith",
+        "sign": "W64"
+    },
+    {
+        "java_name": "equals",
+        "sign": "W65"
+    },
+    {
+        "java_name": "equalsIgnoreCase",
+        "sign": "W66"
+    },
+    {
+        "java_name": "format",
+        "sign": "W67"
+    },
+    {
+        "java_name": "getBytes",
+        "sign": "W68"
+    },
+    {
+        "java_name": "getChars",
+        "sign": "W69"
+    },
+    {
+        "java_name": "hashCode",
+        "sign": "W70"
+    },
+    {
+        "java_name": "indexOf",
+        "sign": "W71"
+    },
+    {
+        "java_name": "intern",
+        "sign": "W72"
+    },
+    {
+        "java_name": "isEmpty",
+        "sign": "W73"
+    },
+    {
+        "java_name": "lastIndexOf",
+        "sign": "W74"
+    },
+    {
+        "java_name": "length",
+        "sign": "W75"
+    },
+    {
+        "java_name": "matches",
+        "sign": "W76"
+    },
+    {
+        "java_name": "offsetByCodePoints",
+        "sign": "W77"
+    },
+    {
+        "java_name": "regionMatches",
+        "sign": "W78"
+    },
+    {
+        "java_name": "replace",
+        "sign": "W79"
+    },
+    {
+        "java_name": "replaceFirst",
+        "sign": "W80"
+    },
+    {
+        "java_name": "replaceAll",
+        "sign": "W81"
+    },
+    {
+        "java_name": "split",
+        "sign": "W82"
+    },
+    {
+        "java_name": "startsWith",
+        "sign": "W83"
+    },
+    {
+        "java_name": "subSequence",
+        "sign": "W84"
+    },
+    {
+        "java_name": "substring",
+        "sign": "W85"
+    },
+    {
+        "java_name": "toCharArray",
+        "sign": "W86"
+    },
+    {
+        "java_name": "toLowerCase",
+        "sign": "W87"
+    },
+    {
+        "java_name": "toString",
+        "sign": "W88"
+    },
+    {
+        "java_name": "toUpperCase",
+        "sign": "W89"
+    },
+    {
+        "java_name": "trim",
+        "sign": "W90"
+    },
+    {
+        "java_name": "valueOf",
+        "sign": "W91"
+    },
+    {
+        "java_name": "Integer",
+        "sign": "W92"
+    }
+]

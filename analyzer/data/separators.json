@@ -1,0 +1,54 @@
+[
+    {
+        "java_name": " ",
+        "sign": "R1"
+    },
+    {
+        "java_name": "\t",
+        "sign": "R2"
+    },
+    {
+        "java_name": "\n",
+        "sign": "R3"
+    },
+    {
+        "java_name": ";",
+        "sign": "R4"
+    },
+    {
+        "java_name": ",",
+        "sign": "R5"
+    },
+    {
+        "java_name": ".",
+        "sign": "R6"
+    },
+    {
+        "java_name": "(",
+        "sign": "R7"
+    },
+    {
+        "java_name": ")",
+        "sign": "R8"
+    },
+    {
+        "java_name": "{",
+        "sign": "R9"
+    },
+    {
+        "java_name": "}",
+        "sign": "R10"
+    },
+    {
+        "java_name": "[",
+        "sign": "R11"
+    },
+    {
+        "java_name": "]",
+        "sign": "R12"
+    },
+    {
+        "java_name": ":",
+        "sign": "R13"
+    }
+]
