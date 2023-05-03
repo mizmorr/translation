@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	stack "rpn/stack"
+	dij "rpn/core"
 )
 
 func main() {
-	stack := stack.Get_Stack()
-	fmt.Println(stack.Is_empty())
-	stack.Push("O31", 1)
-	stack.Push("W21", 2)
+	// stack := stack.Get_Stack()
+	fmt.Println(dij.Dijkstra([]string{"I1", "O8", "N1", "R4"}))
 }

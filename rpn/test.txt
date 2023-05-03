@@ -1,0 +1,10 @@
+W35 W9 I1 R9
+I1 
+L[low] -> I1 R11 I2 R12 -> I1 I2 2AEM
+
+FLT INT STR
+
+k=317; -> I1 O8 N1 R4
+
+
+float f1 = 1; -> W20 I1 O8 N1 R4 -> I1 N1 1:FLT
