@@ -167,6 +167,5 @@ func Design() {
 	cont := container.NewGridWithColumns(3, first_column, second_column, third_column)
 	myWindow.SetContent(cont)
 	myApp.Settings().SetTheme(theme.LightTheme())
-
 	myWindow.ShowAndRun()
 }
