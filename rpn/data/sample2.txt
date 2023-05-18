@@ -1,0 +1,11 @@
+class GFG {
+    public static void main(String[] args)
+    {
+        float f1 = 1;
+        float f2 = 2;
+        float p = f2+f1;
+        if p>3{ 
+        System.out.println("The product is: " + p);
+        } 
+    }
+}

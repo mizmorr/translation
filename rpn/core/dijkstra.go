@@ -6,7 +6,7 @@ import (
 
 	// "strconv"
 	"strings"
-	// "github.com/thedevsaddam/gojsonq"
+	"github.com/thedevsaddam/gojsonq"
 )
 
 func Dijkstra(input_str []string) (result string) {
@@ -102,18 +102,18 @@ func is_init(token string) (bool, string) {
 	return flag, result
 }
 
-// func get_priority(name string) (int, bool) {
-// 	if gojsonq.New().File("data/priorities.json").Count() > 0 {
-// 		jq, err := gojsonq.New().File("data/priorities.json").WhereEqual("element", name).PluckR("priority")
-// 		if err != nil {
-// 			panic(err)
-// 		}
-// 		pri, _ := strconv.Atoi(jq)
-// 		return pri, true
-// 	} else {
-// 		return 0, false
-// 	}
-// }
+func get_priority(name string) (int, bool) {
+	if gojsonq.New().File("data/priorities.json").Count() > 0 {
+		jq, err := gojsonq.New().File("data/priorities.json").WhereEqual("element", name).PluckR("priority")
+		if err != nil {
+			panic(err)
+		}
+		pri, _ := strconv.Atoi(jq)
+		return pri, true
+	} else {
+		return 0, false
+	}
+}
 
 // func is_operator(token string) bool {
 
@@ -126,10 +126,10 @@ func is_init(token string) (bool, string) {
 
 // }
 
-func get_priority(str string) (int, bool) {
-	prities := map[string]int{"O1": 6, "O2": 6, "O22": 5, "O8": 2}
-	if pri, ok := prities[str]; ok {
-		return pri, true
-	}
-	return 0, false
-}
+// func get_priority(str string) (int, bool) {
+// 	prities := map[string]int{"O1": 6, "O2": 6, "O22": 5, "O8": 2}
+// 	if pri, ok := prities[str]; ok {
+// 		return pri, true
+// 	}
+// 	return 0, false
+// }

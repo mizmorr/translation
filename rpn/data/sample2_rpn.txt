@@ -1,0 +1,12 @@
+[BG
+	EC:1 I1
+		BF:1,2 I2 2AEA STR
+			I3 N1 O8 1:FLT
+			I4 N2 O8 1:FLT
+			I5 I4 I3 O1 O8 1:FLT
+			W23 I5 N3 O21 
+			M1 UPL: C1 W53 W52 W51 F F F
+		EF:1,2
+	EC:1
+END]
+			 
