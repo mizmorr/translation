@@ -1,0 +1,8 @@
+class Test:
+    def calculateFactorial(n):
+        result=1
+        for i in range(n-1):
+			result = result*i
+		return result
+    def main(args):
+        print(calculateFactorial(4))

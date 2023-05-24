@@ -1,0 +1,7 @@
+[BG
+	BC:1 I1
+		BF:1,2 I2 2AEA STR
+		C1 W53 W52 W51 F F F
+		EF:1,2
+	EC:1
+END]

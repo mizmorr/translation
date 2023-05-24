@@ -1,0 +1,7 @@
+class GFG:
+    def main(args):
+        f1=1
+        f2=2
+        p=f1+f2
+        if p > 3:
+            print("The product is: "+p)
